@@ -3,6 +3,8 @@ import {Switch, Route, Redirect} from "react-router-dom";
 
 
 import HomePage from "../pages/HomePage";
+import PostPage from "../pages/PostPage";
+import CreatePostPage from "../pages/CreatePostPage";
 
 
 const Routes = () => {
@@ -12,16 +14,12 @@ const Routes = () => {
   return  (      
     <Switch>
       <Route exact path="/" component={HomePage} />
-      {/* <Route path="/admin" component={} /> */}
+      <Route path="/posts" component={PostPage} />
+      <Route path="/createPost" component={CreatePostPage} />
       <Redirect to="/" />
     </Switch>
   )
 };
 
-function mapStateToProps(state) {
-  return {
-    preloader: state.loginReducer.loginPreloader,
-  };
-}
 
 export default Routes
