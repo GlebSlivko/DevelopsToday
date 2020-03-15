@@ -19,42 +19,42 @@ const useStyles = makeStyles(theme => ({
     }));
 
 const Home = () => {
-    const [allPosts, setAllPosts] = useState([]);
+        const [allPosts, setAllPosts] = useState<any[]>([]);
+        console.log("allPosts",allPosts);        
+        
+        useEffect(() => {
+            console.log("Post_useEffect");
+            axios.get('https://simple-blog-api.crew.red/posts').then( data => {
+            console.log(data);
+            const inputData = data;
+            console.log("inputData",inputData);
+            setAllPosts([...allPosts, ...inputData.data]);
+            });
 
-    useEffect(() => {
-    console.log("Post_useEffect");
-    axios.get('https://simple-blog-api.crew.red/posts').then(data => {
-    console.log(data);
-    const inputData = data;
-    console.log("inputData",inputData);
-    setAllPosts([...allPosts, ...inputData]);
-    });
-    
-  }, [allPosts]); 
+        //eslint-disable-next-line
+        }, []);
 
   const classes = useStyles();
     
    return (
-
-    <div className={classes.root}>
-      <List component="nav" aria-label="main mailbox folders">
-        <ListItem button>
+       <div className={classes.root}>        
+       {allPosts.map(item => {
+           return(
+            <List component="nav" aria-label="main mailbox folders">
+          <ListItem button>
           <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
-          <ListItemText primary="Inbox" />
+          <ListItemText primary="Title"{item.title} />
         </ListItem>        
       <Divider />
-        <ListItem button>
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
-          <ListItemText primary="Inbox" />
-        </ListItem>        
       </List>
-  
+           )  
+       })}  
     </div>
   );
 }
+
+ 
 
 export default Home
