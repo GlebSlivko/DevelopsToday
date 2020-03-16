@@ -37,7 +37,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
      root: {
     maxWidth: 500,
-    borderRadius:"10px",
   },
   bullet: {
     display: 'inline-block',
@@ -56,7 +55,6 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius:"10px",
       
     },
     paper: {
@@ -65,7 +63,6 @@ const useStyles = makeStyles((theme: Theme) =>
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
       maxWidth:400,
-      borderRadius:"10px",
     },
     button:{
       marginLeft:"70%",      
@@ -138,8 +135,7 @@ useEffect(() => {
           </Container>
         </Fade>
       </Modal>
-       </Container>
-   
+       </Container>  
   
   );
 }
