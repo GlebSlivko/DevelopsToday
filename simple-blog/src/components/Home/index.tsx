@@ -11,20 +11,13 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import InboxIcon from '@material-ui/icons/Inbox';
-import InfiniteScroll from 'react-infinite-scroll-component';
-import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-// import DraftsIcon from '@material-ui/icons/Drafts';
-
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-
+import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+
+import InfiniteScroll from 'react-infinite-scroll-component';
+
 
 const useStyles = makeStyles(theme => ({
    navbarRoot: {
@@ -65,31 +58,28 @@ const useStyles = makeStyles(theme => ({
     }));
 
 const Home = () => {
-    const langActive = useSelector((state : any)=>state.langsReducer.langActive);
-    console.log("langActive",langActive);
-    const [allPosts, setAllPosts] = useState<any[]>([]);
-    console.log("allPosts",allPosts);
-    const [posts, setPosts] = useState<any[]>([]);
-    const [postsQuantity, setPostsQuantity] = useState<number>(0);
+      const [allPosts, setAllPosts] = useState<any[]>([]);
+      const [posts, setPosts] = useState<any[]>([]);
+      const [postsQuantity, setPostsQuantity] = useState<number>(0);
 
-    useEffect(() => {
-        console.log("Post_useEffect");
-        axios.get('https://simple-blog-api.crew.red/posts').then( data => {
-        console.log(data);
-        const inputData = data;
-        console.log("inputData",inputData);
-        setAllPosts([...allPosts, ...inputData.data]);
-        });
-        // loadMoreProducts()
-    //eslint-disable-next-line
-    }, []);
 
-    useEffect(() => {
-        loadMoreProducts();
+        useEffect(() => {
+            console.log("Post_useEffect");
+            axios.get('https://simple-blog-api.crew.red/posts').then( data => {
+            console.log(data);
+            const inputData = data;
+            console.log("inputData",inputData);
+            setAllPosts([...allPosts, ...inputData.data]);
+            });
         //eslint-disable-next-line
-    },[allPosts]);
+        }, []);
 
-        //eslint-disable-next-line
+            useEffect(() => {
+           loadMoreProducts();
+           //eslint-disable-next-line
+            },[allPosts]);
+
+                  //eslint-disable-next-line
         const loadMoreProducts = ()=>{
          setTimeout(function () {
         const totalPostCpunt = allPosts.length;
@@ -108,18 +98,18 @@ const Home = () => {
         setPosts([...posts, ...addPosts]);
         setPostsQuantity(i);
     }, 1500);
-
 };
-    const history = useHistory();
 
-     const handleClick = (itemId: number) => {
-        history.push("/post/" + itemId);
-        console.log("itemId",itemId);
-    }
+        const history = useHistory();
 
-    const classes = useStyles();
-    const postList = (allPosts: any[])=> {
-     return(
+         const handleClick = (itemId: number) => {
+            history.push("/posts/" + itemId);
+            console.log("itemId",itemId);
+        }
+
+  const classes = useStyles();
+ const postList = (allPosts: any[])=> {   
+ return(
          <Container className={classes.mainContainer}>
          {allPosts.map(item => (
              <Card className={classes.cardRoot} onClick = {() => handleClick(item.id)}>
@@ -140,8 +130,8 @@ const Home = () => {
          ))}
          </Container>
          )
-    };
-    return (
+         };
+             return (
      <InfiniteScroll
          dataLength={posts.length}
          next={loadMoreProducts}
@@ -154,6 +144,6 @@ const Home = () => {
   );
 }
 
-
+ 
 
 export default Home

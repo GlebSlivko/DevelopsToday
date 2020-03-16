@@ -4,15 +4,15 @@ export const initialState = {
 };
 console.log("initialState",initialState);
 
-export default function langsReducer (state = initialState, action : any) {
+export default function postReducer (state = initialState, action : any) {
     switch (action.type) {
         case 'FORM_DATA_TO_STORE_SUCCESS': {
-          return { ...state, header: action.payload.langs, body: action.payload.langs[Object.keys(action.payload.langs)[0]] };
+          return { ...state, header: action.payload.post.header, body: action.payload.post.body };
         }
         // case 'CHANGE_ACTIVE_LANG': {
         //   return { ...state, langActive: action.payload };
         // }
-        case 'FETCH_LANGS_FAIL': {
+        case 'FETCH_POST_FAIL': {
           return { ...state };
         }
 

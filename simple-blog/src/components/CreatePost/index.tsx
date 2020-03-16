@@ -1,15 +1,11 @@
 import React,{useEffect,useState,useCallback} from "react"
 import {useDispatch} from 'react-redux';
-import { formDataToStore} from "../../redux/actions/langsActions";
+import { formDataToStore} from "../../redux/actions/postActions";
 import axios from "axios"
-
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 
@@ -19,9 +15,9 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { useHistory } from "react-router-dom";
 
-const CreatePost = () => {  
+const CreatePost = () => {
 
-        const useStyles = makeStyles((theme: Theme) =>
+    const useStyles = makeStyles((theme: Theme) =>
   createStyles({
       cardRoot: {
         marginLeft:"auto",
@@ -69,32 +65,37 @@ const CreatePost = () => {
     }
   }),
 );
-
-    const [state,setState] = useState({
-        header : '',
-    })
-    console.log(state); 
-
      const [open, setOpen] = React.useState(true);
+     const [state,setState] = useState({
+        header : '',
+        body: ''
+    });
+
     const dispatch = useDispatch();    
 
-    const loadLangs = useCallback(
-        () => { dispatch(formDataToStore(state.header)) },
+    const savePost = useCallback(
+        () => { dispatch(formDataToStore(state)) },
         [dispatch, state]
     );       
     
-    const handleChange = (event: any) => {
-        console.log("event",event); 
+    const handleHeaderChange = (event: any) => {
         const header = event.target.value;
+        setState({ header, body });
+    };
+
+    const handleBodyChange = (event: any) => {
+        console.log("event",event);
+        const body = event.target.value;
         console.log(header);
-        setState({ header });       
-    }
+        setState({ header, body });
+    };
+
  
     const handleSubmit = () => {
-        loadLangs()
-    }
-        
-    const classes = useStyles(); 
+        savePost()
+        history.push("/"); 
+    };
+      
 
     useEffect(()=> {
     console.log("useEffectInCreatePost");
@@ -114,9 +115,11 @@ const CreatePost = () => {
     console.log(error);
     });
     })   
-    const { header } = state;
+    const { header, body } = state;
 
-     const history = useHistory();
+    const classes = useStyles(); 
+
+      const history = useHistory();
 
     const handleClose = () => {
       history.push("/");  
@@ -148,7 +151,7 @@ const CreatePost = () => {
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
                 <TextValidator className={classes.textValidator}
                     label="Header"
-                    onChange={(event) => handleChange(event)}
+                    onChange={(event) => handleHeaderChange(event)}
                     name="header"
                     value={header}
                     validators={['required']}
@@ -156,10 +159,10 @@ const CreatePost = () => {
                 />
                 </Typography>
                  <TextValidator className={classes.textValidator}
-                    label="Header"
-                    onChange={(event) => handleChange(event)}
-                    name="header"
-                    value={header}
+                    label="Body"
+                    onChange={(event) => handleBodyChange(event)}
+                    name="body"
+                    value={body}
                     validators={['required']}
                     errorMessages={['this field is required']}
                 />

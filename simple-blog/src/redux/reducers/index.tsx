@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import langsReducer from './langsReduser';
+import postReducer from './postReduser';
 
 export default combineReducers({
-    langsReducer
+    postReducer
 })

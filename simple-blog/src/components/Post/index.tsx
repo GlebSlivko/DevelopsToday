@@ -1,37 +1,17 @@
 import React,{useState,useEffect} from "react"
+import { useParams } from "react-router-dom"
 import axios from "axios"
-// import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Container from '@material-ui/core/Container';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+
 
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { useHistory } from "react-router-dom";
-
-// const useStyles = makeStyles({
-//   root: {
-//     maxWidth: 500,
-//   },
-//   bullet: {
-//     display: 'inline-block',
-//     margin: '0 2px',
-//     transform: 'scale(0.8)',
-//   },
-//   title: {
-//     fontSize: 14,
-//   },
-//   pos: {
-//     marginBottom: 12,
-//   },
-
-// });
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -72,24 +52,20 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Post = () => { 
     const [post, setPost] = useState<any[]>([]);
+    const [open, setOpen] = React.useState(true);
     const classes = useStyles();
+    const { postId } = useParams();
 
 useEffect(() => {
-    axios.get('https://simple-blog-api.crew.red/posts/1?_embed=comments').then(data => {
+    axios.get(`https://simple-blog-api.crew.red/posts/${postId}?_embed=comments`).then(data => {
     const inputData = data;
     console.log("data",inputData);
     setPost([inputData.data]);
     });
 
     // eslint-disable-next-line
-  },[]);  
-
-   const [open, setOpen] = React.useState(true);
-
-  // const handleOpen = () => {
-  //   setOpen(true);
-  // };
-
+  },[]); 
+  
   const history = useHistory();
 
   const handleClose = () => {
@@ -98,7 +74,7 @@ useEffect(() => {
   };
 
    return ( 
-       <Container>
+  <Container>
       {/* <button type="button" onClick={handleOpen}>
         react-transition-group
       </button> */}
@@ -135,8 +111,7 @@ useEffect(() => {
           </Container>
         </Fade>
       </Modal>
-       </Container>  
-  
+       </Container>            
   );
 }
 
