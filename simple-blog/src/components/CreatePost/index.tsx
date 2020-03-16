@@ -1,4 +1,6 @@
-import React,{useEffect,useState,SyntheticEvent} from "react"
+import React,{useEffect,useState,useCallback} from "react"
+import {useDispatch} from 'react-redux';
+import { formDataToStore} from "../../redux/actions/langsActions";
 import axios from "axios"
 
 import Button from '@material-ui/core/Button';
@@ -7,17 +9,25 @@ import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 const CreatePost = () => {
 
     const [state,setState] = useState({
-        email: '',
+        header : '',
     })
- 
-    const handleChange = (event: SyntheticEvent) => {
+    console.log(state); 
+    const dispatch = useDispatch();    
+
+    const loadLangs = useCallback(
+        () => { dispatch(formDataToStore(state.header)) },
+        [dispatch, state]
+    );       
+    
+    const handleChange = (event: any) => {
         console.log("event",event); 
-        // const email = event.target.value;
-        // setState({ email });
+        const header = event.target.value;
+        console.log(header);
+        setState({ header });       
     }
  
     const handleSubmit = () => {
-        // your submit logic
+        loadLangs()
     }
       
 
@@ -39,7 +49,7 @@ const CreatePost = () => {
     console.log(error);
     });
     })   
-    const { email } = state;
+    const { header } = state;
         
    return (
 
@@ -49,13 +59,21 @@ const CreatePost = () => {
                 onError={errors => console.log(errors)}
             >
                 <TextValidator
-                    label="Email"
-                    onChange={handleChange}
-                    name="email"
-                    value={email}
-                    validators={['required', 'isEmail']}
-                    errorMessages={['this field is required', 'email is not valid']}
+                    label="Header"
+                    onChange={(event) => handleChange(event)}
+                    name="header"
+                    value={header}
+                    validators={['required']}
+                    errorMessages={['this field is required']}
                 />
+                {/* <TextValidator
+                    label="Body"
+                    onChange={(event) => handleChange(event)}
+                    name="body"
+                    value={body}
+                    validators={['required']}
+                    errorMessages={['this field is required']}
+                /> */}
                 <Button type="submit">Submit</Button>
             </ValidatorForm>
         );

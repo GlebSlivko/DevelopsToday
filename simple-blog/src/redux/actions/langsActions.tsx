@@ -1,46 +1,48 @@
 import axios from 'axios';
 
-const fetchLangsAction = () => (dispatch) => {
-    axios.get("/api/langs")
-        .then(response => {
-            return response;
-        })
-        .then(result => {
-            if(result.status === 200){
-                let langs = result.data;
-                dispatch(fetchLangsSuccess(langs));
-            }
-            else{
-                dispatch(fetchLangsFail());
-            }
-        });
+const formDataToStore = (data : any) => (dispatch : any) => {
+    console.log("dataInAction",data);
+     let langs = data;
+                dispatch(formDataToStoreSuccess(langs));
+    // axios.get("/api/langs")
+    //     .then(response => {
+    //         return response;
+    //     })
+        // .then(result => {
+        //     if(result.status === 200){
+        //         let langs = result.data;
+        //         dispatch(fetchLangsSuccess(langs));
+        //     }
+        //     else{
+        //         dispatch(formDataToStoreFail());
+        //     }
+        // });
 };
 
-const fetchLangsSuccess = (langs) => {
+const formDataToStoreSuccess = (langs : any) => {
     return {
-        type: 'FETCH_LANGS_SUCCESS',
+        type: 'FORM_DATA_TO_STORE_SUCCESS',
         payload: {
             langs
         }
     }
 };
-const fetchLangsFail = () => {
+const formDataToStoreFail = () => {
     return {
-        type: 'FETCH_LANGS_FAIL',
+        type: 'FORM_DATA_TO_STORE_FAIL',
     }
 };
 
-const changeActiveLang = (lang)=>{
-    return {
-        type: 'CHANGE_ACTIVE_LANG',
-        payload: lang
-    }
-}
+// const changeActiveLang = (lang : any)=>{
+//     return {
+//         type: 'CHANGE_ACTIVE_LANG',
+//         payload: lang
+//     }
+// }
 
 export {
-    fetchLangsAction,
-    fetchLangsSuccess,
-    fetchLangsFail,
-    changeActiveLang
+    formDataToStore,
+    formDataToStoreSuccess,
+    formDataToStoreFail,
+    // changeActiveLang
 }
-

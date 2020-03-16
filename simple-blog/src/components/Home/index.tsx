@@ -21,7 +21,8 @@ const useStyles = makeStyles(theme => ({
     }));
 
 const Home = () => {
-        // const langActive = useSelector((state)=>state.langsReducer.langActive);
+        const langActive = useSelector((state : any)=>state.langsReducer.langActive);
+        console.log("langActive",langActive);
         const [allPosts, setAllPosts] = useState<any[]>([]);
         console.log("allPosts",allPosts);        
         
