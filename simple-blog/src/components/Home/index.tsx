@@ -1,4 +1,6 @@
 import React,{useEffect,useState} from "react"
+import { useSelector } from 'react-redux';
+import { useHistory } from "react-router-dom";
 import axios from "axios"
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -19,6 +21,7 @@ const useStyles = makeStyles(theme => ({
     }));
 
 const Home = () => {
+        // const langActive = useSelector((state)=>state.langsReducer.langActive);
         const [allPosts, setAllPosts] = useState<any[]>([]);
         console.log("allPosts",allPosts);        
         
@@ -30,9 +33,15 @@ const Home = () => {
             console.log("inputData",inputData);
             setAllPosts([...allPosts, ...inputData.data]);
             });
-
         //eslint-disable-next-line
         }, []);
+
+        const history = useHistory();
+
+         const handleClick = (itemId: number) => {
+            history.push("/post/" + itemId);            
+            console.log("itemId",itemId);
+        }
 
   const classes = useStyles();
     
@@ -40,12 +49,14 @@ const Home = () => {
        <div className={classes.root}>        
        {allPosts.map(item => {
            return(
-            <List component="nav" aria-label="main mailbox folders">
-          <ListItem button>
+            <List onClick = {() => handleClick(item.id)} component="nav" aria-label="main mailbox folders"> 
+          <ListItem button >
           <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
-          <ListItemText primary="Title"{item.title} />
+          <ListItemText primary={item.title}/>
+          <ListItemText primary={item.body}/>
+          <ListItemText primary={item.id}/>
         </ListItem>        
       <Divider />
       </List>
