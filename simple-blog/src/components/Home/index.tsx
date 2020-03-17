@@ -44,6 +44,9 @@ const useStyles = makeStyles(theme => ({
   mainContainer: {
     marginTop: 15,
   },
+  mainButton: {
+    marginBottom: 20,
+  },
   number: {
     marginLeft: "100%",
   },
@@ -108,11 +111,13 @@ const Home = () => {
   const postList = (allPosts: any[]) => {
     return (
       <Container className={classes.mainContainer}>
-        <Card>
-          <Button variant="contained" onClick={handleClickNewPost}>
-            Create New Post
-          </Button>
-        </Card>
+        <Button
+          className={classes.mainButton}
+          variant="contained"
+          onClick={handleClickNewPost}
+        >
+          Create New Post
+        </Button>
 
         {allPosts.map(
           item =>
