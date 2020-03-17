@@ -7,15 +7,13 @@ import CreatePostPage from "../pages/CreatePostPage";
 import NavBar from "../components/Navbar";
 
 const Routes = () => {
-  const basePath = "/DevelopsToday/simple-blog/dist";
-
   return (
     <>
       <NavBar />
       <Switch>
-        <Route exact path={`${basePath}/`} component={HomePage} />
-        <Route path={`${basePath}/posts/new`} component={CreatePostPage} />
-        <Route path={`${basePath}/posts/:postId`} component={PostPage} />
+        <Route exact path="/" component={HomePage} />
+        <Route path="/posts/new" component={CreatePostPage} />
+        <Route path="/posts/:postId" component={PostPage} />
         <Redirect to="/" />
       </Switch>
     </>

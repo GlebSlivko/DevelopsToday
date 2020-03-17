@@ -153,7 +153,7 @@ const Home = () => {
       hasMore={postsQuantity < allPosts.length}
       loader={
         <div className="spinner">
-          <img src="/DevelopsToday/simple-blog/dist/spinner.svg" />
+          <img src="spinner.svg" />
         </div>
       }
     >
