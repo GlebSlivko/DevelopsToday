@@ -59,14 +59,19 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Home = () => {
-  const [allPosts, setAllPosts] = useState<any[]>([]);
+  // const [allPosts, setAllPosts] = useState<any[]>([]);
   const [posts, setPosts] = useState<any[]>([]);
   const [postsQuantity, setPostsQuantity] = useState<number>(0);
 
   const dispatch = useDispatch();
 
-  const mainPosts: any = useSelector(state => state.allPostsReducer.allPosts);
-  console.log("mainPosts", mainPosts);
+  const allPostsfromStore: any = useSelector(
+    (state: any) => state.allPostsReducer.allPosts
+  );
+
+  const allPosts = allPostsfromStore.reverse();
+
+  console.log("allPosts", allPosts);
 
   const getAllPosts = useCallback(() => {
     dispatch(allPostsToStore());
@@ -95,7 +100,7 @@ const Home = () => {
     setTimeout(function() {
       const totalPostCpunt = allPosts.length;
       if (allPosts.length < 1) return;
-      const step = 6;
+      const step = 12;
       let addPosts = [];
       let i = postsQuantity;
       console.log("i", i);
@@ -129,11 +134,11 @@ const Home = () => {
           >
             <CardContent>
               <Typography className={classes.titleTypography}>
-                {item.title}
+                {item.data ? item.data.title : item.title}
                 <Divider />
               </Typography>
               <Typography className={classes.bodyTypography}>
-                {item.body}
+                {item.data ? item.data.body : item.body}
                 <Box className={classes.box}>
                   <span className={classes.number}> {item.id}</span>
                 </Box>

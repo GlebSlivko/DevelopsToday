@@ -100,11 +100,11 @@ const Post = () => {
                     color="textSecondary"
                     gutterBottom
                   >
-                    {item.title}
+                    {item.data.title}
                   </Typography>
                   <Divider />
                   <Typography className={classes.pos} color="textSecondary">
-                    {item.body}
+                    {item.data.body}
                   </Typography>
                   <Typography className={classes.button} color="textSecondary">
                     <Button onClick={handleClose} color="primary">
