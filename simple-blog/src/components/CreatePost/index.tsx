@@ -89,7 +89,6 @@ const CreatePost = () => {
         console.log(header);
         setState({ header, body });
     };
-
  
     const handleSubmit = () => {
         savePost()
