@@ -59,7 +59,6 @@ const Post = () => {
       .get(`https://simple-blog-api.crew.red/posts/${postId}?_embed=comments`)
       .then(data => {
         const inputData = data;
-        console.log("data", inputData);
         setPost([inputData.data]);
       });
 
@@ -93,18 +92,18 @@ const Post = () => {
         <Fade in={open}>
           <Container className={classes.paper}>
             {post.map(item => {
-              return (
+                return (
                 <>
                   <Typography
                     className={classes.title}
                     color="textSecondary"
                     gutterBottom
                   >
-                    {item.data.title}
+                      {item.data ? item.data.title : item.title}
                   </Typography>
                   <Divider />
                   <Typography className={classes.pos} color="textSecondary">
-                    {item.data.body}
+                      {item.data ? item.data.body : item.body}
                   </Typography>
                   <Typography className={classes.button} color="textSecondary">
                     <Button onClick={handleClose} color="primary">

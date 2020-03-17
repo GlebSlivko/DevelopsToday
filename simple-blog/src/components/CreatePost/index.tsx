@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useState, useCallback, FormEvent } from "react";
 import { useDispatch } from "react-redux";
 import { formDataToStore } from "../../redux/actions/postActions";
-import axios from "axios";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
@@ -74,43 +73,25 @@ const CreatePost = () => {
     dispatch(formDataToStore(state));
   }, [dispatch, state]);
 
-  const handleHeaderChange = (event: any) => {
-    const header = event.target.value;
+  const handleHeaderChange = (event: FormEvent<{}>) => {
+    const element = event.currentTarget as HTMLInputElement;
+    const header = element.value;
     setState({ header, body });
   };
 
-  const handleBodyChange = (event: any) => {
-    console.log("event", event);
-    const body = event.target.value;
-    console.log(header);
+  const handleBodyChange = (event: FormEvent<{}>) => {
+    const element = event.currentTarget as HTMLInputElement;
+    const body = element.value;
     setState({ header, body });
   };
 
   const handleSubmit = () => {
     savePost();
-    history.push("/");
+    setTimeout(() => {
+      history.push("/");
+    }, 100);
   };
 
-  useEffect(() => {
-    console.log("useEffectInCreatePost");
-    axios
-      .post("https://simple-blog-api.crew.red/posts", {
-        headers: {
-          "Content-Type": "testHeader",
-        },
-        data: {
-          title: "In quibusdam tempore odit est dolorem",
-          body:
-            "Itaque id aut magnam praesentium quia et ea odit et ea voluptas et sapiente quia nihil amet occaecati quia id voluptatem incidunt ea est distinctio odio",
-        },
-      })
-      .then(function(response) {
-        console.log(response);
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-  });
   const { header, body } = state;
 
   const classes = useStyles();
@@ -141,7 +122,6 @@ const CreatePost = () => {
             <ValidatorForm
               // ref="form"
               onSubmit={handleSubmit}
-              onError={errors => console.log(errors)}
             >
               <Typography
                 className={classes.title}
