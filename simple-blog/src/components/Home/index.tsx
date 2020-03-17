@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState, useCallback } from "react";
 import { useHistory } from "react-router-dom";
+import { allPostsToStore } from "../../redux/actions/allPostsActions";
+import { useDispatch, useSelector } from "react-redux";
+
 import axios from "axios";
 
 import Container from "@material-ui/core/Container";
@@ -61,14 +63,25 @@ const Home = () => {
   const [posts, setPosts] = useState<any[]>([]);
   const [postsQuantity, setPostsQuantity] = useState<number>(0);
 
+  const dispatch = useDispatch();
+
+  const mainPosts: any = useSelector(state => state.allPostsReducer.allPosts);
+  console.log("mainPosts", mainPosts);
+
+  const getAllPosts = useCallback(() => {
+    dispatch(allPostsToStore());
+  }, [dispatch]);
+
   useEffect(() => {
     console.log("Post_useEffect");
-    axios.get("https://simple-blog-api.crew.red/posts").then(data => {
-      console.log(data);
-      const inputData = data;
-      console.log("inputData", inputData);
-      setAllPosts([...allPosts, ...inputData.data]);
-    });
+    getAllPosts();
+
+    // axios.get("https://simple-blog-api.crew.red/posts").then(data => {
+    //   console.log(data);
+    //   const inputData = data;
+    //   console.log("inputData", inputData);
+    //   setAllPosts([...allPosts, ...inputData.data]);
+    // });
     //eslint-disable-next-line
   }, []);
 
