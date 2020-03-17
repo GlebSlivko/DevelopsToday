@@ -40,6 +40,7 @@ const useStyles = makeStyles(theme => ({
   cardRoot: {
     minWidth: 400,
     marginBottom: 15,
+    cursor: "pointer",
   },
   mainContainer: {
     marginTop: 15,
@@ -152,7 +153,7 @@ const Home = () => {
       hasMore={postsQuantity < allPosts.length}
       loader={
         <div className="spinner">
-          <img src="spinner.svg" />
+          <img src="/DevelopsToday/simple-blog/dist/spinner.svg" />
         </div>
       }
     >
