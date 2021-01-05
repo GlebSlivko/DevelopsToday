@@ -23,7 +23,7 @@
     "@typescript-eslint/eslint-plugin": "^2.24.0",
     "@typescript-eslint/eslint-plugin-tslint": "^2.24.0",
     "@typescript-eslint/parser": "^2.24.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "eslint-config-airbnb-typescript-prettier": "^1.4.2",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
